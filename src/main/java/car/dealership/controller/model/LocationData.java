@@ -3,8 +3,8 @@ package car.dealership.controller.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import car.dealership.entity.Car;
 import car.dealership.entity.Location;
+import car.dealership.entity.Model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +18,8 @@ public class LocationData {
 	private String state;
 	private String zip;
 	private String phone;
-	private Set<String> cars = new HashSet<>();
+	private ModelLocation model;
+	private Set<String> models = new HashSet<>();
 	
 	
 	
@@ -30,39 +31,42 @@ public class LocationData {
 		state = location.getState();
 		zip = location.getZip();
 		phone = location.getPhone();
+		model = new ModelLocation();
 		
-		for(Car car : location.getCars()) {
-			cars.add(car.getName());
+		for(Model model : location.getModel()) {
+			models.add(model.getName());
 		}
 	}
 	@Data
 	@NoArgsConstructor
-	public static class LocationCar {
-		private Long carId;
-		private String carName;
-		private String carAddress;
+	public static class ModelLocation {
+		private Long modelId;
+		private String Name;
 		
-		public LocationCar(Car car) {
-			carId = car.getCarId();
-			carName = car.getName();
-			carAddress = car.getAddress();
+		
+		
+		public ModelLocation(Model model) {
+			modelId = model.getModelId();
+			Name = model.getName();
+			
+			
 		}
+	
 		
 		@Data
 		@NoArgsConstructor
-		public class CarData {
-				private Long carId;
-				private String carName;
-				private String carAddress;
+		public class ModelData {
+				private Long modelId;
+				private String name;
 				private Set<LocationResponse> locations = new HashSet<>();
 				
 				
-			public CarData(Car car) {
-				carId = car.getCarId();
-				carName = car.getName();
-				carAddress = car.getAddress();
+			public ModelData(Model model) {
+				modelId = model.getModelId();
+				name = model.getName();
 				
-				for(Location location : car.getLocations()) {
+				
+				for(Location location : model.getLocations()) {
 					locations.add(new LocationResponse(location));
 				}
 				}
@@ -77,7 +81,7 @@ public class LocationData {
 					private String state;
 					private String zip;
 					private String phone;
-					private Set<String> cars = new HashSet<>();
+					private Set<String> models = new HashSet<>();
 					
 					LocationResponse(Location location) {
 						locationId = location.getLocationId();
@@ -90,8 +94,8 @@ public class LocationData {
 						
 						
 						
-						for(Car car : location.getCars()) {
-							cars.add(car.getName());
+						for(Model model: location.getModel()) {
+							models.add(model.getName());
 							
 						}
 					}
@@ -101,5 +105,5 @@ public class LocationData {
 				}
 
 	}
-	
 }
+	

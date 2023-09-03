@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import car.dealership.controller.model.LocationData;
-import car.dealership.controller.model.LocationData.LocationCar.CarData;
+import car.dealership.controller.model.LocationData.ModelLocation.ModelData;
 import car.dealership.service.DealershipSevice;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,40 +28,40 @@ public class DealershipController {
 	@Autowired
 	private DealershipSevice dealershipService;
 	
-	@PostMapping("/car")
+	@PostMapping("/model")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public CarData insertCar (
-			@RequestBody CarData carData) {
-		log.info("Creating car {}", carData);
-		return dealershipService.savecar(carData);
+	public ModelData insertCar (
+			@RequestBody ModelData modelData) {
+		log.info("Creating model {}", modelData);
+		return dealershipService.savemodel(modelData);
 }
 	
-	@GetMapping("/car")
-	public List<CarData> retrieveAllCars() {
-		log.info(":retrieve all cars called.");
-		return dealershipService.retrieveAllCars();
+	@GetMapping("/model")
+	public List<ModelData> retrieveAllCars() {
+		log.info(":retrieve all models called.");
+		return dealershipService.retrieveAllModels();
 	}
-	@GetMapping("car/(carId")
-	public CarData RetrieveCarById(@PathVariable Long carId ) {
-	log.info("retrieveing car with ID=()", carId);
-	return dealershipService.retrieveCarById(carId);
+	@GetMapping("model/(modelId")
+	public ModelData RetrieveById(@PathVariable Long modelId ) {
+	log.info("retrieveing model with ID=()", modelId);
+	return dealershipService.retrieveModelById(modelId);
 	
 }
 	
-	@DeleteMapping("/car")
+	@DeleteMapping("/model")
 	public void deleteAllCars() {
-		log.info("Attempting to delete all cars");
+		log.info("Attempting to delete all models");
 		throw new UnsupportedOperationException(
-				"Deleteing all cars is not allowed");
+				"Deleteing all models is not allowed");
 	}
 	
-	@DeleteMapping("/car/{carId}")
-	public Map<String, String> deleteContributorById(@PathVariable Long carId) {
-		log.info("Deleting car with ID=()", carId);
+	@DeleteMapping("/model/{modelId}")
+	public Map<String, String> deleteModelById(@PathVariable Long modelId) {
+		log.info("Deleting car with ID=()", modelId);
 		
-		dealershipService.deletecarById(carId);
+		dealershipService.deleteModelById(modelId);
 		
-		return Map.of("message", "Deletion of car ID=" + carId + "was successful.");
+		return Map.of("message", "Deletion of car ID=" + modelId + "was successful.");
 		
 	}
 	
@@ -75,7 +75,7 @@ public class DealershipController {
 	
 
 
-	@PutMapping("/car/(carrId)/car/{carId}")
+	@PutMapping("/car/{carId}/{locationId}")
 	public LocationData updatelocatData(@PathVariable Long carId, 
 			@PathVariable Long locationId,
 			@RequestBody LocationData locationData) {

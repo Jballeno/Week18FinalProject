@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import car.dealership.controller.model.LocationData.LocationCar.CarData;
+import car.dealership.controller.model.LocationData.ModelLocation.ModelData;
 import car.dealership.service.DealershipSevice;
 
 
@@ -27,7 +27,7 @@ private DealershipSevice dealershipService;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		List<CarData> models = dealershipService.retrieveAllCars();
+		List<ModelData> models = dealershipService.retrieveAllModels();
 		models.forEach(System.out::println);
 	}
 }
